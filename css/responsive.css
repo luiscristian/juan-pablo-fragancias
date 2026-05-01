@@ -1,0 +1,24 @@
+@media (max-width: 850px) {
+  .productos__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .header {
+    min-height: auto;
+  }
+
+  .productos__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header__acciones {
+    flex-direction: column;
+  }
+
+  .boton {
+    width: 100%;
+    text-align: center;
+  }
+}

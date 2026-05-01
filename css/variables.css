@@ -1,0 +1,22 @@
+:root {
+  --color-fondo: #0b1020;
+  --color-fondo-suave: #111827;
+  --color-card: #161f33;
+  --color-principal: #d4af37;
+  --color-principal-suave: #f5d76e;
+  --color-texto: #ffffff;
+  --color-texto-suave: #cbd5e1;
+  --color-whatsapp: #22c55e;
+
+  --fuente-principal: Arial, sans-serif;
+
+  --ancho-maximo: 1100px;
+  --radio-card: 22px;
+  --sombra-card: 0 18px 45px rgba(0, 0, 0, 0.35);
+
+  --espacio-xs: 8px;
+  --espacio-sm: 14px;
+  --espacio-md: 24px;
+  --espacio-lg: 40px;
+  --espacio-xl: 70px;
+}

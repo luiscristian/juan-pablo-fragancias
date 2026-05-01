@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juan Pablo Fragancias</title>
+    <link rel="stylesheet" href="css/index.css">
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="contenedor header__contenido">
+        <span class="header__sello">Perfumes importados</span>
+
+        <h1 class="header__titulo">
+          Juan Pablo <span>Fragancias</span>
+        </h1>
+
+        <p class="header__texto">
+          Aromas seleccionados para quienes buscan presencia, estilo y una fragancia que deje huella.
+        </p>
+
+        <div class="header__acciones">
+          <a href="#productos" class="boton boton--principal">Ver perfumes</a>
+          <a href="#" class="boton boton--secundario" id="btn-whatsapp-general">
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="productos" id="productos">
+        <div class="contenedor">
+          <div class="productos__encabezado">
+            <h2>Catálogo destacado</h2>
+            <p>Elegí tu perfume y consultá disponibilidad por WhatsApp.</p>
+          </div>
+
+          <div class="productos__grid" id="productos-grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 🔥 BOTÓN FLOTANTE -->
+    <button class="carrito-btn" id="abrir-carrito">
+      🛒 Reserva <span id="carrito-contador">0</span>
+    </button>
+
+    <!-- 🔥 PANEL CARRITO -->
+    <aside class="carrito" id="carrito">
+      <button class="carrito__cerrar" id="cerrar-carrito">×</button>
+
+      <h2>Reserva</h2>
+      <p>Agregá perfumes y consultá el adelanto por WhatsApp.</p>
+
+      <div id="carrito-lista"></div>
+
+      <div class="carrito__total">
+        <strong>Total:</strong>
+        <span id="carrito-total">$0</span>
+      </div>
+
+      <button class="carrito__finalizar" id="finalizar-reserva">
+        Finalizar por WhatsApp
+      </button>
+    </aside>
+
+    <script type="module" src="js/index.js"></script>
+  </body>
+</html>
