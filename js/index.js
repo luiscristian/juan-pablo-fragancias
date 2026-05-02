@@ -1,10 +1,17 @@
 import { productos, renderizarProductos } from "./productos.js";
 import { activarCarrito } from "./carrito.js";
+import { activarBotonWhatsAppGeneral } from "./whatsapp.js";
 
 const productosGrid = document.querySelector("#productos-grid");
 
+// Render de productos
 renderizarProductos(productos, productosGrid);
+
+// Activar carrito
 activarCarrito();
+
+// Activar WhatsApp (botón general + footer)
+activarBotonWhatsAppGeneral();
 
 /* 🔥 EFECTO LUPA */
 

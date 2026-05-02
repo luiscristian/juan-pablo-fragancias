@@ -1,6 +1,6 @@
 let carrito = [];
 
-const telefono = "549XXXXXXXXXX";
+const telefono = "5493874151491";
 
 function obtenerPrecioNumero(precio) {
   return Number(precio.replace("$", "").replace(".", ""));
@@ -16,6 +16,12 @@ function cargarCarrito() {
   if (carritoGuardado) {
     carrito = JSON.parse(carritoGuardado);
   }
+}
+
+function calcularTotalCarrito() {
+  return carrito.reduce((total, item) => {
+    return total + obtenerPrecioNumero(item.precio) * item.cantidad;
+  }, 0);
 }
 
 export function agregarAlCarrito(producto) {
@@ -37,9 +43,7 @@ export function agregarAlCarrito(producto) {
 function sumarProducto(nombre) {
   const item = carrito.find((producto) => producto.nombre === nombre);
 
-  if (item) {
-    item.cantidad++;
-  }
+  if (item) item.cantidad++;
 
   guardarCarrito();
   renderizarCarrito();
@@ -90,9 +94,9 @@ export function renderizarCarrito() {
         </div>
 
         <div class="carrito__acciones">
-          <button class="carrito__cantidad" data-accion="restar" data-nombre="${item.nombre}">−</button>
-          <button class="carrito__cantidad" data-accion="sumar" data-nombre="${item.nombre}">+</button>
-          <button class="carrito__eliminar" data-accion="eliminar" data-nombre="${item.nombre}">×</button>
+          <button data-accion="restar" data-nombre="${item.nombre}">−</button>
+          <button data-accion="sumar" data-nombre="${item.nombre}">+</button>
+          <button data-accion="eliminar" data-nombre="${item.nombre}">×</button>
         </div>
       </div>
     `;
@@ -105,24 +109,14 @@ export function renderizarCarrito() {
 }
 
 function activarAccionesCarrito() {
-  const botones = document.querySelectorAll("[data-accion]");
-
-  botones.forEach((boton) => {
+  document.querySelectorAll("[data-accion]").forEach((boton) => {
     boton.addEventListener("click", () => {
       const accion = boton.dataset.accion;
       const nombre = boton.dataset.nombre;
 
-      if (accion === "sumar") {
-        sumarProducto(nombre);
-      }
-
-      if (accion === "restar") {
-        restarProducto(nombre);
-      }
-
-      if (accion === "eliminar") {
-        eliminarProducto(nombre);
-      }
+      if (accion === "sumar") sumarProducto(nombre);
+      if (accion === "restar") restarProducto(nombre);
+      if (accion === "eliminar") eliminarProducto(nombre);
     });
   });
 }
@@ -141,38 +135,35 @@ export function activarCarrito() {
     boton.addEventListener("click", (evento) => {
       evento.preventDefault();
 
-      const producto = {
+      agregarAlCarrito({
         nombre: boton.dataset.nombre,
         precio: boton.dataset.precio
-      };
+      });
 
-      agregarAlCarrito(producto);
       carritoPanel.classList.add("carrito--activo");
     });
   });
 
-  abrirCarrito.addEventListener("click", () => {
-    carritoPanel.classList.add("carrito--activo");
-  });
+  abrirCarrito.onclick = () => carritoPanel.classList.add("carrito--activo");
+  cerrarCarrito.onclick = () => carritoPanel.classList.remove("carrito--activo");
 
-  cerrarCarrito.addEventListener("click", () => {
-    carritoPanel.classList.remove("carrito--activo");
-  });
-
-  finalizarReserva.addEventListener("click", () => {
+  finalizarReserva.onclick = () => {
     if (carrito.length === 0) {
       alert("El carrito está vacío.");
       return;
     }
 
-    let mensaje = "Hola, quiero reservar estos perfumes:%0A%0A";
+    const total = calcularTotalCarrito().toLocaleString("es-AR");
+
+    let mensaje = "Hola, quiero reservar los siguientes perfumes:%0A%0A";
 
     carrito.forEach((item) => {
-      mensaje += `• ${item.nombre} - ${item.cantidad} unidad/es - ${item.precio}%0A`;
+      mensaje += `• ${item.nombre} x${item.cantidad} - ${item.precio}%0A`;
     });
 
-    mensaje += "%0AQuiero consultar por el adelanto para confirmar la reserva.";
+    mensaje += `%0ATotal: $${total}%0A%0A`;
+    mensaje += "¿Cómo puedo avanzar con el pago?";
 
     window.open(`https://wa.me/${telefono}?text=${mensaje}`, "_blank");
-  });
+  };
 }
